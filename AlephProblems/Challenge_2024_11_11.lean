@@ -1,7 +1,6 @@
 import Mathlib.Algebra.GeomSum
 import Mathlib.Data.Nat.Factorial.Basic
 import Mathlib.Data.Real.Basic
-import Mathlib.Topology.Algebra.InfiniteSum.Defs
 
 -- https://aleph0.substack.com/p/how-to-self-study-real-analysis-a
 
