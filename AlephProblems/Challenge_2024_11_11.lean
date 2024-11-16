@@ -22,7 +22,8 @@ theorem pow_two_le_factorial_succ : 2 ^ k ≤ k.succ.factorial := by
   have := Nat.factorial_mul_pow_le_factorial (m := 1) (n := k)
   simpa [add_comm 1] using this
 
-theorem Main (n : ℕ) : ∑ k in .range n, (k.factorial : ℝ)⁻¹ < 3 := by
+-- Main theorem
+theorem sum_inv_factorial_lt_three (n : ℕ) : ∑ k in .range n, (k.factorial : ℝ)⁻¹ < 3 := by
   cases n with
   | zero => simp
   | succ n =>
