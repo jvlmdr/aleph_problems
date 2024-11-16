@@ -4,8 +4,7 @@ import Mathlib.Data.Real.Basic
 
 -- https://aleph0.substack.com/p/how-to-self-study-real-analysis-a
 
-namespace AlephProblems
-namespace Challenge_2024_11_11
+namespace AlephProblems.Challenge_2024_11_11
 
 theorem sum_inv_pow_two_lt_two (n : ℕ) : ∑ k in .range n, (2 ^ k : ℝ)⁻¹ < 2 := by
   simp only [← inv_pow]
@@ -41,5 +40,4 @@ theorem sum_inv_factorial_lt_three (n : ℕ) : ∑ k in .range n, (k.factorial :
     · simp [Nat.factorial_pos]
     · simp
 
-end Challenge_2024_11_11
-end AlephProblems
+end AlephProblems.Challenge_2024_11_11
