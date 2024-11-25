@@ -29,14 +29,14 @@ lemma Nat.two_dvd_mul_add_one (n : ℕ) : 2 ∣ n * (n + 1) := by
 
 theorem factorial_lt_add_one_div_two_pow_n {n : ℕ} (hn : 1 < n) :
     n ! < ((n + 1) / 2 : ℝ) ^ n := by
-  have hn_pos := Nat.zero_lt_of_lt hn
+  have hn_pos : 0 < n := Nat.zero_lt_of_lt hn
+  have hn_ne : n ≠ 0 := hn_pos.ne'
 
   rw [← Real.strictMonoOn_log.lt_iff_lt]
   rotate_left
   · simp [Nat.factorial_pos]
   · rw [Set.mem_Ioi]
-    refine pow_pos ?_ _
-    rw [div_pos_iff_of_pos_right zero_lt_two]
+    refine pow_pos (div_pos ?_ zero_lt_two) _
     norm_cast
     exact Nat.add_one_pos _
   rw [← Finset.prod_range_add_one_eq_factorial]
@@ -49,19 +49,18 @@ theorem factorial_lt_add_one_div_two_pow_n {n : ℕ} (hn : 1 < n) :
     (w := fun _ ↦ (n⁻¹ : ℝ))
     (p := fun i : ℕ ↦ (i + 1 : ℝ))
     (fun _ _ ↦ by simp [hn_pos])
-    (by simp [hn_pos.ne'])
+    (by simp [hn_ne])
     (fun i _ ↦ by
       simp only [Set.mem_Ioi]
       norm_cast
       simp)
     ⟨0, by simp [hn_pos], 1, by simp [hn], by simp⟩
-
   simp only [smul_eq_mul] at h
   simp only [← Finset.mul_sum] at h
   rw [inv_mul_lt_iff₀ (by norm_cast)] at h
 
   refine lt_of_lt_of_eq h ?_
-  rw [mul_right_inj' (M₀ := ℝ) (by norm_cast; exact hn_pos.ne')]
+  rw [mul_right_inj' (by norm_cast)]
   refine congrArg _ ?_
   norm_cast
   rw [Finset.sum_range_add_one]
@@ -71,5 +70,5 @@ theorem factorial_lt_add_one_div_two_pow_n {n : ℕ} (hn : 1 < n) :
   push_cast
   refine congrArg₂ _ ?_ rfl
   rw [← mul_assoc]
-  rw [inv_mul_cancel₀ (by norm_cast; exact hn_pos.ne')]
+  rw [inv_mul_cancel₀ (by norm_cast)]
   simp
